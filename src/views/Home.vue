@@ -23,7 +23,36 @@
             }"
           ></vue-good-table>
         </b-tab>
-        <b-tab title="Disabled"><p>I'm a disabled tab!</p></b-tab>
+        <b-tab title="安打数">
+          <vue-good-table
+            :columns="columns"
+            :rows="result.hitTop10"
+            :sort-options="{
+              enabled: true,
+              initialSortBy: { field: 'hit', type: 'desc' },
+            }"
+          ></vue-good-table>
+        </b-tab>
+        <b-tab title="全打者">
+          <vue-good-table
+            :columns="columns"
+            :rows="result.battingResultList"
+            :sort-options="{
+              enabled: true,
+              initialSortBy: { field: 'average', type: 'desc' },
+            }"
+          ></vue-good-table>
+        </b-tab>
+        <b-tab title="全投手">
+          <vue-good-table
+            :columns="pColumns"
+            :rows="result.pitchingResultList"
+            :sort-options="{
+              enabled: true,
+              initialSortBy: { field: 'era', type: 'asc' },
+            }"
+          ></vue-good-table>
+        </b-tab>
       </b-tabs>
     </div>
   </div>
@@ -31,7 +60,7 @@
 
 <script lang="ts">
 import { ResultModel } from "@/models/ResultModel";
-import { columns } from "@/models/table_columns";
+import { columns, pColumns } from "@/models/table_columns";
 import { Component, Vue } from "vue-property-decorator";
 
 @Component({
@@ -42,6 +71,7 @@ import { Component, Vue } from "vue-property-decorator";
 export default class Home extends Vue {
   setupDone = false;
   columns!: any[];
+  pColumns!: any[];
   result!: {};
   mounted() {
     console.log();
@@ -54,6 +84,7 @@ export default class Home extends Vue {
     const result = await response.json();
     this.setupDone = true;
     this.columns = columns;
+    this.pColumns = pColumns;
     this.result = result;
     console.log(this.result);
   }
