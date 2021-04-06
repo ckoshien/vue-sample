@@ -1,4 +1,5 @@
 module.exports = {
     publicPath: '/vue-sample/',
-    outputDir: 'docs'
+    outputDir: 'docs',
+    productionSourceMap: false
   }
